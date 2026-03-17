@@ -1,9 +1,16 @@
-import unittest
-from main import add
+name: Python application test
 
-class TestAdd(unittest.TestCase):
-    def test_add(self):
-        self.assertEqual(add(2, 3), 5)
+on: [push]
 
-if __name__ == "__main__":
-    unittest.main()
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Run tests
+      run: |
+        python -m unittest test_main.py
